@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clli.mybatis.User">
+
+	<select id="findUserbyId" parameterType="int" resultType="user">
+		select
+		*
+		from user where id = #{userid}
+	</select>
+
+	<insert id="insertuser" parameterType="user" useGeneratedKeys="true"
+		keyProperty="userid">
+		insert into user
+		(userid,username)
+		values
+		(#{userid},#{username})
+	</insert>
+
+	<insert id="insertgroup" parameterType="user">
+		insert into usergroup
+		(userid,groupid)
+		values
+		(#{userid},#{groupId})
+	</insert>
+
+</mapper>

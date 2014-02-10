@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clli.mybatis.Group">
+
+	<resultMap id="group" type="group">
+		<id property="groupid" column="groupid" />
+		<result column="groupname" property="groupname" />
+	</resultMap>
+
+	<resultMap type="group" id="group2" extends="group">
+		<association property="detail" javaType="groupdetail">
+			<id property="groupid" column="groupid" />
+			<result property="detail" column="detail" />
+		</association>
+		<collection property="user" ofType="user">
+			<id property="userid" column="userid" />
+			<result property="username" column="username" />
+		</collection>
+	</resultMap>
+
+	<select id="findAllGroup" resultMap="group2">
+		select g.*,u.*,gd.detail
+		from group1 g
+		inner
+		join usergroup ug inner join user u inner join
+		groupdetail gd on
+		g.groupid=ug.groupid and
+		u.userid=ug.userid and
+		gd.groupid=g.groupid
+	</select>
+</mapper>
